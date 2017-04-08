@@ -6,21 +6,21 @@ Customized Banner View For iOS
 ## Features
 
 1. Color Variations (AJKBannerBGColor)
-⋅⋅* Red
-⋅⋅* Green
-⋅⋅* Blue
-⋅⋅* Yellow
-⋅⋅* Orange
-⋅⋅* Custom
+    * Red
+    * Green
+    * Blue
+    * Yellow
+    * Orange
+    * Custom
 
 2. Animation (AJKBannerAnimation)
-⋅⋅* Linear
-⋅⋅* Springy
+    * Linear
+    * Springy
 
 3. Direction (AJKBannerDirection)
-⋅⋅* Left
-⋅⋅* Right
-⋅⋅* Down
+    * Left
+    * Right
+    * Down
 
 ## Initializers
 
