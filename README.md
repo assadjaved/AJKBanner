@@ -22,17 +22,23 @@ Customized Banner View For iOS
     * Right
     * Down
 
-## Initializers
+4. Image (AJKBannerImage)
+    * Thumb
+    * Checkmark
+    * Exclamation
+    * Cross
+
+## Initializer
 
 ```javascript
-AJKBanner.addBanner(title: String, message: String, bannerColor: AJKBannerBGColor)
+AJKBanner.addBanner(title: String,
+                    message: String,
+                    bannerColor: AJKBannerBGColor,
+                    direction: AJKBannerDirection,
+                    animation: AJKBannerAnimation,
+                    titleFontName: String?,
+                    messageFontName: String?,
+                    textColor: UIColor,
+                    imageType: AJKBannerImage,
+                    imageTint: UIColor)
 ```
-
-```javascript
-AJKBanner.addBanner(title: String, message: String, bannerColor: AJKBannerBGColor, direction: AJKBannerDirection)
-```
-
-```javascript
-AJKBanner.addBanner(title: String, message: String, bannerColor: AJKBannerBGColor, direction: AJKBannerDirection, animation: AJKBannerAnimation)
-```
-
