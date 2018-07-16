@@ -129,7 +129,35 @@ class ViewController: UIViewController {
     }
     
     @IBAction func showBanner(_ sender: UIButton) {
-        AJKBanner.addBanner(title: "Download Completed", message: "AJK.doc has been downloaded successfully!", bannerColor: selectedColor, direction: selectedDirection, animation: selectedAnimationType)
+        
+        var color = UIColor.white
+        if selectedColor.color() == AJKBannerBGColor.yellow.color() {
+            color = UIColor.black
+        }
+        
+        var imageType: AJKBannerImage = .thumb
+        let random = arc4random() % 4
+        switch random {
+        case 0:
+            imageType = .thumb
+        case 1:
+            imageType = .checkmark
+        case 2:
+            imageType = .exclamation
+        case 3:
+            imageType = .cross
+        default:
+            imageType = .thumb
+        }
+        
+        AJKBanner.addBanner(title: "Upload Complete",
+                            message: "image.png has been uploaded successfully! What would you like to do now man? huh?",
+                            bannerColor: selectedColor,
+                            direction: selectedDirection,
+                            animation: selectedAnimationType,
+                            textColor: color,
+                            imageType: imageType,
+                            imageTint: color)
     }
 }
 

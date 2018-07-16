@@ -15,6 +15,10 @@
 		04CCD5BF1E98B0F70074020F /* AJKBannerDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCD5BE1E98B0F70074020F /* AJKBannerDemoTests.swift */; };
 		04CCD5CA1E98B0F70074020F /* AJKBannerDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCD5C91E98B0F70074020F /* AJKBannerDemoUITests.swift */; };
 		04CCD5D91E98B1240074020F /* AJKBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CCD5D81E98B1240074020F /* AJKBanner.swift */; };
+		A60423F320FC80AE00207855 /* error-exclamation.png in Resources */ = {isa = PBXBuildFile; fileRef = A60423EF20FC80AE00207855 /* error-exclamation.png */; };
+		A60423F420FC80AE00207855 /* success-checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = A60423F020FC80AE00207855 /* success-checkmark.png */; };
+		A60423F520FC80AE00207855 /* error-cross.png in Resources */ = {isa = PBXBuildFile; fileRef = A60423F120FC80AE00207855 /* error-cross.png */; };
+		A60423F620FC80AE00207855 /* success-thumb.png in Resources */ = {isa = PBXBuildFile; fileRef = A60423F220FC80AE00207855 /* success-thumb.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +53,10 @@
 		04CCD5C91E98B0F70074020F /* AJKBannerDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJKBannerDemoUITests.swift; sourceTree = "<group>"; };
 		04CCD5CB1E98B0F70074020F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04CCD5D81E98B1240074020F /* AJKBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AJKBanner.swift; sourceTree = "<group>"; };
+		A60423EF20FC80AE00207855 /* error-exclamation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error-exclamation.png"; sourceTree = "<group>"; };
+		A60423F020FC80AE00207855 /* success-checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "success-checkmark.png"; sourceTree = "<group>"; };
+		A60423F120FC80AE00207855 /* error-cross.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error-cross.png"; sourceTree = "<group>"; };
+		A60423F220FC80AE00207855 /* success-thumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "success-thumb.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,9 +139,21 @@
 		04CCD5D71E98B1140074020F /* AJKBanner */ = {
 			isa = PBXGroup;
 			children = (
+				A60423EE20FC80AE00207855 /* resources */,
 				04CCD5D81E98B1240074020F /* AJKBanner.swift */,
 			);
 			path = AJKBanner;
+			sourceTree = "<group>";
+		};
+		A60423EE20FC80AE00207855 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				A60423EF20FC80AE00207855 /* error-exclamation.png */,
+				A60423F020FC80AE00207855 /* success-checkmark.png */,
+				A60423F120FC80AE00207855 /* error-cross.png */,
+				A60423F220FC80AE00207855 /* success-thumb.png */,
+			);
+			path = resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -243,8 +263,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A60423F320FC80AE00207855 /* error-exclamation.png in Resources */,
+				A60423F420FC80AE00207855 /* success-checkmark.png in Resources */,
 				04CCD5B41E98B0F70074020F /* LaunchScreen.storyboard in Resources */,
+				A60423F520FC80AE00207855 /* error-cross.png in Resources */,
 				04CCD5B11E98B0F70074020F /* Assets.xcassets in Resources */,
+				A60423F620FC80AE00207855 /* success-thumb.png in Resources */,
 				04CCD5AF1E98B0F70074020F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -519,6 +543,7 @@
 				04CCD5D01E98B0F70074020F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		04CCD5D11E98B0F70074020F /* Build configuration list for PBXNativeTarget "AJKBannerDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -527,6 +552,7 @@
 				04CCD5D31E98B0F70074020F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		04CCD5D41E98B0F70074020F /* Build configuration list for PBXNativeTarget "AJKBannerDemoUITests" */ = {
 			isa = XCConfigurationList;
@@ -535,6 +561,7 @@
 				04CCD5D61E98B0F70074020F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

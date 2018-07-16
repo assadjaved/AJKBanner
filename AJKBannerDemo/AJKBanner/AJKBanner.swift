@@ -39,6 +39,25 @@ enum AJKBannerBGColor {
     }
 }
 
+enum AJKBannerImage {
+    case thumb
+    case checkmark
+    case exclamation
+    case cross
+    func uiimage() -> UIImage {
+        switch self {
+        case .thumb:
+            return UIImage(named: "success-thumb.png")!
+        case .checkmark:
+            return UIImage(named: "success-checkmark.png")!
+        case .exclamation:
+            return UIImage(named: "error-exclamation.png")!
+        case .cross:
+            return UIImage(named: "error-cross.png")!
+        }
+    }
+}
+
 fileprivate enum AJKBannerLabelType {
     case title
     case message
@@ -49,13 +68,27 @@ class AJKBanner: UIView {
     fileprivate static let AJKBannerWidth: CGFloat = UIScreen.main.bounds.size.width
     fileprivate static let AJKBannerHeight: CGFloat = 96.0
     
+    fileprivate let mainStackView = UIStackView()
+    fileprivate let innerStackView = UIStackView()
+    
     static func addBanner(title: String,
                           message: String,
                           bannerColor: AJKBannerBGColor,
                           titleFontName: String? = nil,
-                          messageFontName: String? = nil) {
+                          messageFontName: String? = nil,
+                          textColor: UIColor,
+                          imageType: AJKBannerImage,
+                          imageTint: UIColor) {
         
-        addBanner(title: title, message: message, bannerColor: bannerColor, direction: .down, titleFontName: titleFontName, messageFontName: messageFontName)
+        addBanner(title: title,
+                  message: message,
+                  bannerColor: bannerColor,
+                  direction: .down,
+                  titleFontName: titleFontName,
+                  messageFontName: messageFontName,
+                  textColor: textColor,
+                  imageType: imageType,
+                  imageTint: imageTint)
     }
     
     static func addBanner(title: String,
@@ -63,9 +96,21 @@ class AJKBanner: UIView {
                           bannerColor: AJKBannerBGColor,
                           direction: AJKBannerDirection,
                           titleFontName: String? = nil,
-                          messageFontName: String? = nil) {
+                          messageFontName: String? = nil,
+                          textColor: UIColor,
+                          imageType: AJKBannerImage,
+                          imageTint: UIColor) {
         
-        addBanner(title: title, message: message, bannerColor: bannerColor, direction: direction, animation: .linear, titleFontName: titleFontName, messageFontName: messageFontName)
+        addBanner(title: title,
+                  message: message,
+                  bannerColor: bannerColor,
+                  direction: direction,
+                  animation: .linear,
+                  titleFontName: titleFontName,
+                  messageFontName: messageFontName,
+                  textColor: textColor,
+                  imageType: imageType,
+                  imageTint: imageTint)
     }
     
     static func addBanner(title: String,
@@ -74,17 +119,33 @@ class AJKBanner: UIView {
                           direction: AJKBannerDirection,
                           animation: AJKBannerAnimation,
                           titleFontName: String? = nil,
-                          messageFontName: String? = nil) {
+                          messageFontName: String? = nil,
+                          textColor: UIColor,
+                          imageType: AJKBannerImage,
+                          imageTint: UIColor) {
         
         
         // creating a new banner
-        let banner = AJKBanner(frame: CGRect(x: 0, y: 0, width: AJKBannerWidth, height: AJKBannerHeight))
+        let banner = AJKBanner(frame: CGRect(x: 0,
+                                             y: 0,
+                                             width: AJKBannerWidth,
+                                             height: AJKBannerHeight))
         
         // setting background color
         banner.backgroundColor = bannerColor.color()
         
+        // configure stack view
+        banner.configureStackView()
+        
+        // add image view
+        banner.addImageView(imageType: imageType, tint: imageTint)
+        
         // adding labels to banner
-        banner.addLabels(title: title, message: message, titleFontName: titleFontName, messageFontName: messageFontName)
+        banner.addLabels(title: title,
+                         message: message,
+                         titleFontName: titleFontName,
+                         messageFontName: messageFontName,
+                         textColor: textColor)
         
         // calculating animation frame as per direction
         var currentFrame = banner.frame
@@ -144,13 +205,16 @@ class AJKBanner: UIView {
 extension AJKBanner {
     
     private var xOffset: CGFloat {
-        return 16.0
+        return 8.0
     }
     private var defaultTitleFontSize: CGFloat {
-        return 22.0
+        return 16.0
     }
     private var defaultMessageFontSize: CGFloat {
-        return 16.0
+        return 13.0
+    }
+    private var defaultImageSize: CGFloat {
+        return 48.0
     }
     private var defaultTitleFontName: String {
         return "AvenirNext-DemiBold"
@@ -159,40 +223,68 @@ extension AJKBanner {
         return "AvenirNext-Regular"
     }
     
+    fileprivate func configureStackView() {
+        self.mainStackView.axis = .horizontal
+        self.mainStackView.alignment = .top
+        self.mainStackView.distribution = .fillProportionally
+        self.mainStackView.spacing = 10
+        self.mainStackView.backgroundColor = UIColor.clear
+        self.mainStackView.frame = CGRect(x: xOffset,
+                                 y: self.frame.origin.y + UIApplication.shared.statusBarFrame.size.height + 5,
+                                 width: self.frame.size.width,
+                                 height: self.frame.size.height - UIApplication.shared.statusBarFrame.size.height)
+        self.addSubview(self.mainStackView)
+    }
+    
+    fileprivate func addImageView(imageType: AJKBannerImage, tint: UIColor) {
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: defaultImageSize, height: defaultImageSize))
+        imageView.image = imageType.uiimage()
+        imageView.image = imageView.image!.withRenderingMode(.alwaysTemplate)
+        imageView.tintColor = tint
+        imageView.contentMode = .scaleAspectFit
+        self.mainStackView.addArrangedSubview(imageView)
+        imageView.widthAnchor.constraint(equalToConstant: defaultImageSize).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: defaultImageSize).isActive = true
+    }
+    
     fileprivate func addLabels(title: String,
                                message: String,
                                titleFontName: String? = nil,
-                               messageFontName: String? = nil) {
+                               messageFontName: String? = nil,
+                               textColor: UIColor) {
         
-        let titleLabel = makeLabel(text: title, fontName: titleFontName ?? defaultTitleFontName, fontSize: defaultTitleFontSize, type: .title)
-        let messageLabel = makeLabel(text: message, fontName: messageFontName ?? defaultMessageFontName, fontSize: defaultMessageFontSize, type: .message)
-        self.addSubview(titleLabel)
-        self.addSubview(messageLabel)
+        let titleLabel = makeLabel(text: title, fontName: titleFontName ?? defaultTitleFontName, fontSize: defaultTitleFontSize, type: .title, textColor: textColor)
+        let messageLabel = makeLabel(text: message, fontName: messageFontName ?? defaultMessageFontName, fontSize: defaultMessageFontSize, type: .message, textColor: textColor)
+        
+        innerStackView.axis = .vertical
+        innerStackView.alignment = .leading
+        innerStackView.distribution = .fill
+        innerStackView.spacing = 3
+        innerStackView.backgroundColor = UIColor.clear
+        innerStackView.frame = CGRect(x: 0,
+                                      y: 0,
+                                      width: self.mainStackView.frame.size.width - defaultImageSize,
+                                      height: self.mainStackView.frame.size.height)
+        mainStackView.addArrangedSubview(innerStackView)
+        
+        innerStackView.addArrangedSubview(titleLabel)
+        innerStackView.addArrangedSubview(messageLabel)
     }
     
     fileprivate func makeLabel(text: String,
                                fontName: String,
                                fontSize: CGFloat,
-                               type: AJKBannerLabelType) -> UILabel {
+                               type: AJKBannerLabelType,
+                               textColor: UIColor) -> UILabel {
         
         let label = UILabel()
-        label.text = text
-        label.numberOfLines = 0
+        label.frame = CGRect(x: 0, y: 0, width: self.innerStackView.frame.size.width - xOffset, height: 999)
+        label.numberOfLines = 2
         label.lineBreakMode = .byWordWrapping
-        label.textColor = (self.backgroundColor == AJKBannerBGColor.yellow.color()) ? UIColor.black : UIColor.white
+        label.textColor = textColor
         label.font = UIFont(name: fontName, size: fontSize)
-        label.frame = CGRect(x: xOffset, y: 0, width: AJKBanner.AJKBannerWidth - xOffset, height: 0)
+        label.text = text
         label.sizeToFit()
-        var frame = label.frame
-        switch type {
-            case .title:
-                frame.origin.y = self.center.y - frame.size.height + UIApplication.shared.statusBarFrame.size.height / 2 // using status bar frame as reference offset to adjust title label frame
-                break
-            case .message:
-                frame.origin.y = self.center.y + frame.size.height / 2
-                break
-        }
-        label.frame = frame
         return label
     }
 }
